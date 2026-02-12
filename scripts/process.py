@@ -36,10 +36,10 @@ SOURCES = [
      None, # <--Không loại trừ 
      "Nhóm Kênh SCTV"),
 
-    ("https://raw.githubusercontent.com/tranhieu512/test/refs/heads/main/min1", 
-     r'"Địa phương"',
+    ("https://raw.githubusercontent.com/tranhieu512/Test1/refs/heads/main/min1", 
+     r'"HOẠT HÌNH"',
      None, # <--Không loại trừ
-     "Nhóm Kênh Địa phương"),
+     "HOẠT HÌNH"),
     
     ("https://raw.githubusercontent.com/tranhieu512/test/refs/heads/main/min1", 
      r'"Kênh thiết yếu"',
