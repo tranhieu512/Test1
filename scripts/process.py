@@ -46,15 +46,10 @@ SOURCES = [
      None, # <--Không loại trừ
      "Nhóm Kênh Thiết yếu"),
 
-    ("https://raw.githubusercontent.com/vanxuantai/IPTV-tai/refs/heads/main/iptv.m3u", 
-     r'tvg-id="onviegiaitri"|tvg-id="onphimviet"|tvg-id="onechannel"',
+    ("https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/vmttv", 
+     r'"Quốc Tế"',
      None, # <--Không loại trừ
-     "Nhóm Kênh test"),
-
-    ("https://raw.githubusercontent.com/hoiquanclick/hoiquan/refs/heads/main/vip.m3u", 
-     r'tvg-id="vtvcab-1-vie-giai-tri-hd"|tvg-id="vtvcab-2-phim-viet-hd"|tvg-id="vtvcab-5-e-channel-hd"',
-     None, # <--Không loại trừ
-     "Nhóm Kênh test"),
+     "Quốc Tế"),
     
     ("https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/vmttv", 
      r'"LIVE EVENTS 🔴"',
