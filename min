@@ -165,8 +165,32 @@ https://liveh34.vtvprime.vn/hls/SCTV22/04.m3u8
 #EXTINF:-1 tvg-id="sctvhdpth" group-title="Nhóm Kênh SCTV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/c/ca/SCTVPTH.jpg", SCTV Phim Tổng Hợp
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
 https://liveh12.vtvprime.vn/hls/SCTVPHIM/03.m3u8
-#EXTINF:-1 group-title="HOẠT HÌNH" tvg-logo="https://phimapi.com/image.php?url=https://phimimg.com/upload/vod/20251223-1/6bc1d549b86e490274d93bab66a3654d.jpg", Phi Vụ Động Trời 2 - Zootopia 2
+#EXTINF:-1 group-title="HOẠT HÌNH" tvg-logo="https://phimapi.com/image.php?url=https://phimimg.com/upload/vod/20250731-1/f558a7bb32c571adbac1a74ba3218179.jpg", Phi Vụ Động Trời 1
+https://s6.kkphimplayer6.com/20250731/rnejr82F/index.m3u8
+#EXTINF:-1 group-title="HOẠT HÌNH" tvg-logo="https://phimapi.com/image.php?url=https://phimimg.com/upload/vod/20251223-1/6bc1d549b86e490274d93bab66a3654d.jpg", Phi Vụ Động Trời 2
 https://s6.kkphimplayer6.com/20260129/oAtCSUd4/index.m3u8
+#EXTINF:-1 group-title="HOẠT HÌNH" tvg-logo="https://phimapi.com/image.php?url=https://phimimg.com/upload/vod/20250206-1/064c6f42c1fccb7ef286ec367ff95212.jpg", Na Tra 2: Ma Đồng Náo Hải
+https://s6.kkphimplayer6.com/20250804/8y2cdO0q/index.m3u8
+#EXTINF:-1 group-title="HOẠT HÌNH" tvg-logo="https://phimapi.com/image.php?url=https://phimimg.com/upload/vod/20250516-1/e51402a887bb3dab4db99a396fd03a53.jpg", Kẻ Trộm Mặt Trăng 1
+https://s5.phim1280.tv/20250516/SzGKrSUT/index.m3u8
+#EXTINF:-1 group-title="HOẠT HÌNH" tvg-logo="https://phimapi.com/image.php?url=https://phimimg.com/upload/vod/20250516-1/bda2e80f1ef61467ad0ede1e384c6fb2.jpg", Kẻ Trộm Mặt Trăng 2
+https://s5.phim1280.tv/20250516/hYxxMgTc/index.m3u8
+#EXTINF:-1 group-title="HOẠT HÌNH" tvg-logo="https://phimapi.com/image.php?url=https://phimimg.com/upload/vod/20250516-1/9cd221bf8e65fb20966f4b6130017dae.jpg", Kẻ Trộm Mặt Trăng 3
+https://s5.phim1280.tv/20250516/3T2rcjnD/index.m3u8
+#EXTINF:-1 group-title="HOẠT HÌNH" tvg-logo="https://phimapi.com/image.php?url=https://phimimg.com/upload/vod/20250516-1/ba774c09dabd7ef4878dd53e70e01183.jpg", Kẻ Trộm Mặt Trăng 4
+https://s5.phim1280.tv/20250516/m8wPQYcs/index.m3u8
+#EXTINF:-1 group-title="HOẠT HÌNH" tvg-logo="https://phimapi.com/image.php?url=https://phimimg.com/upload/vod/20250814-1/4b597cdf88b13967cf9991d62fb60317.jpg", Thợ Săn Quỷ Kpop
+https://s6.kkphimplayer6.com/20250814/dugDnppL/index.m3u8
+#EXTINF:-1 group-title="HOẠT HÌNH" tvg-logo="https://phimapi.com/image.php?url=https://phimimg.com/upload/vod/20250516-1/d088278e4a0f9532615e70e4d6c95d6b.jpg", Minions: Sự Trỗi Dậy Của Gru
+https://s5.phim1280.tv/20250516/qGQRGvEB/index.m3u8
+#EXTINF:-1 group-title="HOẠT HÌNH" tvg-logo="https://phimapi.com/image.php?url=https://phimimg.com/upload/vod/20250516-1/63e14ac151b40ef5aed5e0c715d9a7c0.jpg", Minions
+https://s5.phim1280.tv/20250516/iVpBkX9N/index.m3u8
+#EXTINF:-1 group-title="HOẠT HÌNH" tvg-logo="https://phimapi.com/image.php?url=https://phimimg.com/upload/vod/20231213-1/491c4e0245d305f360870b28bad1fb6d.jpg", Minions: Tiểu Quái Da Vàng
+https://s2.phim1280.tv/20240106/D3cxJCGa/index.m3u8
+#EXTINF:-1 group-title="HOẠT HÌNH" tvg-logo="https://phimapi.com/image.php?url=https://phimimg.com/upload/vod/20231208-1/74194f21ac825510cf80d117322de10a.jpg", Minion Cắt Cỏ
+https://s2.phim1280.tv/20231223/D9ipNTi4/index.m3u8
+#EXTINF:-1 group-title="HOẠT HÌNH" tvg-logo="https://phimapi.com/image.php?url=https://phimimg.com/upload/vod/20231204-1/cfbb5960fa3e9fb8e9b4c41ba3ff5415.jpg", Minions & More Volume 1
+https://s2.phim1280.tv/20231212/Q9wgVO18/index.m3u8
 #EXTINF:-1 tvg-id="antvhd" group-title="Nhóm Kênh Thiết yếu" tvg-logo="https://i.imgur.com/QztqOe0.png", ANTV
 https://live.fptplay53.net/fnxhd2/anninhtv_vhls.smil/chunklist.m3u8
 #EXTINF:-1 tvg-id="qpvnhd" group-title="Nhóm Kênh Thiết yếu" tvg-logo="https://i.imgur.com/UIGZw0y.png", QPVN
