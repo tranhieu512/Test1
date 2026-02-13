@@ -34,16 +34,17 @@ SOURCES = [
 FINAL_TEXT_FILE = "min"
 FINAL_JSON_FILE = "min.json" # xuat file json
 ALL_M3U_LINES = [f"#EXTM3U url-tvg=\"{EPG_URL_STRING}\"\n"] # Dòng header đầu tiên
-ALL_JSON_DATA = [] # danh sach chua du lieu cho JSON
+ALL_GROUPS_JSON = [] # danh sach chua du lieu cho JSON
 
 def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
     """Tải file M3U, lọc kênh, lại trừ kênh và chuẩn hóa cho ca Text va JSON."""
     print(f"--- Đang xử lý nguồn: {url}")
     processed_lines = []
+    channels_in_group = []
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()
-    except requests.exceptions.RequestException as e: #test
+    except Exception as e: #test
         print(f"❌ Lỗi khi tải {url}: {e}")
         return []
 
@@ -68,6 +69,7 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
             tvg_id = re.search(r'tvg-id="([^"]*)"',line)
             tvg_logo = re.search(r'tvg-logo="([^"]*)"', line)
             name_match = re.search(r',([^,]+)$', line)
+            channel_name = name_match.group(1).strip() if name_match else "Unknown"
         # 2. Chuẩn hóa dong EXTINF cho file Text
             line = re.sub(r'group-title="[^"]*"', f'group-title="{new_group_title}"', line)
             temp_lines = [line +'\n'] 
@@ -91,12 +93,15 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
                 if not next_line.startswith('#'): 
                     temp_lines.append(next_line + '\n')
                     # Luu vao danh sach JSON
-                    ALL_JSON_DATA.append({
-                        "title": name_match.group(1).strip() if name_match else "Unknown",
-                        "name": name_match.group(1).strip() if name_match else "Unknown",
-                        "tvg_id": tvg_id.group(1) if tvg_id else "",
-                        "logo": tvg_logo.group(1) if tvg_logo else "",
-                        "group": new_group_title,
+                    channels_in_group.append({
+                        "id": tvg_id.group(1) if tvg_id else channel_name,
+                        "name": channel_name,
+                        "title": channel_name,
+                        "image": {
+                            "url": tvg_logo.group(1) if tvg_logo else "",
+                            "display": "contain"
+                        },
+                        
                         "url": next_line,
                         "link": next_line
                     })
@@ -104,14 +109,12 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
                     i = j
                     break
                 else:
-                    temp_lines.append(next_line + '\n')
+temp_channel_lines.append(next_line + '\n')
                 j += 1
             if url_found:
-                processed_lines.extend(temp_lines) # Thêm URL
-            else:
-                i = j
-        else:
-            i += 1
+processed_lines.extend(temp_channel_lines) # Thêm URL
+            
+        i += 1
 
     return processed_lines
 # ----------------- Thực thi chính -----------------
@@ -126,6 +129,12 @@ if __name__ == "__main__":
     # ❗️ Đảm bảo dòng này thẳng hàng với các dòng xử lý chính khác
     #temp_static_content = [line + '\n' for line in STATIC_CHANNELS] 
     #ALL_M3U_LINES.extend(temp_static_content)
+        if channels_json:
+            ALL-GROUPS_JSON.append({
+                "id": group_name.lower().replace("", "_"),
+                "name": group_name,
+                "channels": channels_json
+            })
         
     # 3. Xóa các dòng trắng thừa
     final_text_content = [line for line in ALL_M3U_LINES if line.strip()]
@@ -153,13 +162,13 @@ if __name__ == "__main__":
         print(f"❌ Lỗi khi ghi file TXT: {e}")
     # 8. Xuat file JSON
     try:
-        w3u_wrapper = {
-            "name": "IPTV MIN LIST",
-            "author": "TTH",
-            "stations": ALL_JSON_DATA
+        mon_data = {
+            "id": "MOON LIST",
+            "name": "List",
+            "groups": ALL_GROUPS_JSON
         }
         with open(FINAL_JSON_FILE, 'w', encoding='utf-8') as f:
-            json.dump(ALL_JSON_DATA, f, ensure_ascii=False, indent=4)
+            json.dump(mon_data, f, ensure_ascii=False, indent=4)
         print(f"✅ Tổng hợp thành công JSON: {FINAL_JSON_FILE}")
     except Exception as e:
         print(f"❌ Lỗi khi ghi file JSON: {e}")
