@@ -145,7 +145,7 @@ if __name__ == "__main__":
         mon_data = {
             "id": "MOON LIST",
             "name": "List",
-            "color": "#FF6B35"
+            "color": "#FF6B35",
             "image": {
                 "display": "contain",
                 "url": "https://xem.hoiquan.click/HoiQuan_Mini.png"
