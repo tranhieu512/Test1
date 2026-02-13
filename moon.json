@@ -1,1 +1,51 @@
 
+{
+    "channels": [
+        {
+            "id": "HOẠT HÌNH",
+            "name": "Phi Vụ Động Trời 1",
+            "image": {
+                "display": "cover",
+                "shape": "square",
+                "url": "https://phimapi.com/image.php?url=https://phimimg.com/upload/vod/20250731-1/f558a7bb32c571adbac1a74ba3218179.jpg",
+                "height": 101,
+                "width": 155
+            },
+            "type": "single",
+            "display": "text-below",
+            "sources": [
+                {
+                    "id": "HOẠT HÌNH",
+                    "name": "",
+                    "contents": [
+                        {
+                            "id": "HOẠT HÌNH",
+                            "name": "",
+                            "streams": [
+                                {
+                                    "id": "HOẠT HÌNH",
+                                    "name": "Phi Vụ Động Trời 1",
+                                    "image": {
+                                        "display": "contain",
+                                        "shape": "square",
+                                        "url": "https://phimapi.com/image.php?url=https://phimimg.com/upload/vod/20250731-1/f558a7bb32c571adbac1a74ba3218179.jpg",
+                                        "height": 101,
+                                        "width": 155
+                                    },
+                                    "stream_links": [
+                                        {
+                                            "id": "HOẠT HÌNH",
+                                            "name": "Phi Vụ Động Trời 1",
+                                            "url": "https://s6.kkphimplayer6.com/20250731/EtyEW7gL/index.m3u8",
+                                            "type": "hls",
+                                            "default": true
+                                        }
+                                    ],
+                                    "remote_data": null
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
