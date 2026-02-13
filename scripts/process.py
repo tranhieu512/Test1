@@ -1,6 +1,7 @@
 import requests
 import re
 import os
+import json
 from datetime import datetime
 
 # ------------------Cấu hình EPG-------------
@@ -29,22 +30,25 @@ SOURCES = [
     
 ]
 
-# FINAL_OUTPUT_FILE = "MIN.m3u" # Đã ẩn xuất file m3u
-FINAL_TEXT_FILE = "min"
-ALL_M3U_LINES = [f"#EXTM3U url-tvg=\"{EPG_URL_STRING}\"\n"] # Dòng header đầu tiên
 
-def fetch_and_process_m3u(url, filter_regex, exclude_regex, new_group_title):
+FINAL_TEXT_FILE = "min"
+FINAL_JSON_FILE = "min.json" # xuat file json
+ALL_M3U_LINES = [f"#EXTM3U url-tvg=\"{EPG_URL_STRING}\"\n"] # Dòng header đầu tiên
+ALL_CHANNELS_DATA = [] # danh sach chua du lieu cho JSON
+
+def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
     """Tải file M3U, lọc kênh, lại trừ kênh và chuẩn hóa Group Title."""
     print(f"--- Đang xử lý nguồn: {url}")
+    processed_lines = []
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()
-    except requests.exceptions.RequestException as e:
+    except requests.exceptions.RequestException as e: #test
         print(f"❌ Lỗi khi tải {url}: {e}")
-        return []
+        return [], []
 
     lines = response.text.splitlines()
-    processed_lines = []
+    
     
     # Duyệt qua từng dòng để tìm #EXTINF
     i = 0
@@ -52,12 +56,8 @@ def fetch_and_process_m3u(url, filter_regex, exclude_regex, new_group_title):
         line = lines[i].strip()
 
         # 1. Bỏ qua các dòng không phải #EXTINF
-        if not line.startswith('#EXTINF'):
-            i += 1
-            continue
+        if not line.startswith('#EXTINF') and re.search(filter_regex, line):
             
-        # 2. Lọc kênh: Kiểm tra xem dòng EXTINF có khớp với Regex lọc không
-        if re.search(filter_regex, line):
             # Loại trừ kênh
             if exclude_regex and re.search(exclude_regex, line): # Nếu có Regex loại trừ và kênh khớp với nó, thì bỏ qua kênh này
                 i += 1
@@ -65,9 +65,21 @@ def fetch_and_process_m3u(url, filter_regex, exclude_regex, new_group_title):
         # 3. Chuẩn hóa Group Title
             line = re.sub(r'group-title="[^"]*"', f'group-title="{new_group_title}"', line)
             
-            processed_lines.append(line + '\n') # Thêm dòng EXTINF đã xử lý
-            
-        # 4. Logic new: Tìm kiếm tất cả các dòng va URL thực 
+            # processed_lines.append(line + '\n') # Thêm dòng EXTINF đã xử lý
+
+        # 3.1 Trich xuat du lieu cho JSON
+            tvg_id = re.search(r'tvg-id="([^"]*)"',line)
+            tvg_logo = re.search(r'tvg-logo="([^"]*)"', line)
+            name = re.search(r',([^,]+)$', line)
+            channel_obj = {
+                "name": name.group(1).strip() if name else "Unknown",
+                "tvg_id": tvg_id.group(1) if tvg_id else "",
+                "logo": tvg_logo.group(1) if tvg_logo else "",
+                "group": new_group_title,
+                "url":""
+            }
+            current_channel_lines = [line + '\n']
+        # 4. Logic new: Tìm kiếm URL thực 
             j = i + 1
             url_found = False
             while j < len(lines):
@@ -83,23 +95,17 @@ def fetch_and_process_m3u(url, filter_regex, exclude_regex, new_group_title):
                     break
                     
                 # b) Nếu tìm thấy URL hợp lệ (không trống và không bắt đầu bằng '#')
-                if next_line and not next_line.startswith('#'):
-                    processed_lines.append(next_line + '\n') # Thêm URL
-                    url_found=True
+                if not next_line.startswith('#'): 
+current_channel_lines.append(next_line + '\n')
+                    channel_obj["url"] = next_line # Gan URL vao JSON
+                    processed_lines.extend(current_channel_lines) # Thêm URL
+ALL_CHANNELS_DATA.append(channel_obj) # Them kenh vao danh sach JSON tong
+                    
                     i = j # Bắt đầu tìm kiếm EXTINF tiếp theo từ dòng này 
-                    break # Thoát khỏi vòng lặp tìm URL
-                
-                # c) Nếu là dòng trống hoặc thẻ mở rộng (như #EXTGRP)
-                if next_line.startswith('#'):
-                    # Thêm dòng thẻ mở rộng vào trước URL
-                    processed_lines.append(next_line + '\n')
-                j += 1
-            
-            # Nếu tìm thấy URL, i đã được cập nhật, ta tiếp tục vòng lặp chính 
-            # Nếu không tìm thấy URL (vi du: gap EXTINF tiep theo), ta phải cập nhật i
-            if not url_found:
-                 i = j
-        else:
+                    break # Thoát khỏi vòng lặp tìm URL        
+                else:
+current_channel_lines.append(next_line + '\n')
+                j +=1
             # Nếu không khớp với bộ lọc, chuyển sang dòng tiếp theo
             i += 1
 
@@ -109,7 +115,7 @@ def fetch_and_process_m3u(url, filter_regex, exclude_regex, new_group_title):
 if __name__ == "__main__":
     # 1. XỬ LÝ CÁC NGUỒN ĐỘNG (Thực hiện trước)
     for url, regex_keep, regex_exclude, group in SOURCES:
-        channel_list = fetch_and_process_m3u(url, regex_keep, regex_exclude, group)
+        channel_list = fetch_and_process(url, regex_keep, regex_exclude, group)
         ALL_M3U_LINES.extend(channel_list)
     # 2. THÊM KÊNH CỐ ĐỊNH (Thực hiện sau, ở cuối danh sách)
     #print(f"\n✅ Đang thêm {len(STATIC_CHANNELS) // 2} kênh cố định vào cuối danh sách...")
@@ -142,3 +148,10 @@ if __name__ == "__main__":
         print(f"\n✅ Tổng hợp thành công {len(final_content)} dòng vào {FINAL_TEXT_FILE}")
     except Exception as e:
         print(f"❌ Lỗi khi ghi file TXT: {e}")
+    # 8. Xuat file JSON
+    try:
+        with open(FINAL_JSON_FILE, 'w', endcoding='utf-8') as f:
+            json.dump(ALL_CHANNELS_DATA, f, ensure_ascii=False, indent=4)
+        print(f"✅ Tổng hợp thành công JSON: {FINAL_JSON_FILE}")
+    except Exception as e:
+        print(f"❌ Lỗi khi ghi file JSON: {e}")
