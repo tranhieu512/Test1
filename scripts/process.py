@@ -38,81 +38,81 @@ ALL_GROUPS_JSON = [] # danh sach chua du lieu cho JSON
 def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
     """Tải file M3U, lọc kênh, lại trừ kênh và chuẩn hóa cho ca Text va JSON."""
     print(f"--- Đang xử lý nguồn: {url}")
-    processed_lines = []
+    processed_text_lines = []
     channels_in_group = []
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()
-        lines = response.text.splitlines()
+        raw_lines = response.text.splitlines()
     except Exception as e: #test
         print(f"❌ Lỗi khi tải {url}: {e}")
         return [], []
          
     i = 0
-    while i < len(lines):
-        line = lines[i].strip()
+    while i < len(raw_lines):
+        current_line = raw_lines[i].strip()
 
         # 1. Bỏ qua các dòng không phải #EXTINF
-        if line.startswith('#EXTINF') and re.search(filter_regex, line):
+        if line.startswith('#EXTINF') and re.search(filter_regex, current_line):
             
             # Loại trừ kênh
-            if exclude_regex and re.search(exclude_regex, line): # Nếu có Regex loại trừ và kênh khớp với nó, thì bỏ qua kênh này
+            if exclude_regex and re.search(exclude_regex, current_line): # Nếu có Regex loại trừ và kênh khớp với nó, thì bỏ qua kênh này
                 i += 1
                 continue 
         
             
          # 1. Trich xuat du lieu cho JSON
-            tvg_id = re.search(r'tvg-id="([^"]*)"',line)
-            tvg_logo = re.search(r'tvg-logo="([^"]*)"', line)
-            name_match = re.search(r',([^,]+)$', line)
+            tvg_id = re.search(r'tvg-id="([^"]*)"',current_line)
+            tvg_logo = re.search(r'tvg-logo="([^"]*)"', current_line)
+            name_match = re.search(r',([^,]+)$', current_line)
             channel_name = name_match.group(1).strip() if name_match else "Unknown"
         # 2. Chuẩn hóa dong EXTINF cho file Text
-            line = re.sub(r'group-title="[^"]*"', f'group-title="{new_group_title}"', line)
+            clean_line = re.sub(r'group-title="[^"]*"', f'group-title="{new_group_title}"', current_line)
             
-            temp_channel_lines = [line_text +'\n'] 
+            temp_channel_lines = [clean_line +'\n'] 
             
             
         # 3. Logic new: Tìm kiếm URL thực 
             j = i + 1
             url_found = False
-            while j < len(lines):
-                next_line = lines[j].strip()
-                if not next_line:
+            while j < len(raw_lines):
+                next_l = raw_lines[j].strip()
+                if not next_l:
                     # Bỏ qua dòng trống
                     j+=1
                     continue
                 
                 # a) Nếu gặp EXTINF mới, dừng tìm URL 
-                if next_line.startswith('#EXTINF'):
+                if next_l.startswith('#EXTINF'):
                     break
                     
                 # b) Nếu tìm thấy URL hợp lệ (không trống và không bắt đầu bằng '#')
-                if not next_line.startswith('#'): 
-                    temp_channel_lines.append(next_line + '\n')
+                if not next_l.startswith('#'): 
+                    temp_lines.append(next_l + '\n')
                     # Luu vao danh sach JSON
-                    channels_in_group.append({
+                    channels_for_json.append({
                         "id": tvg_id.group(1) if tvg_id else channel_name.lower().replace("","_"),
                         "name": channel_name,
                         "image": {
-                            "url": tvg_logo.group(1) if tvg_logo else "",
+                            "url": tvg_logo.group(1) if (tvg_logo and tvg_logo.group(1)) else "https://xem.hoiquan.click/HoiQuan_Mini.png",
                             "display": "contain"
                         },
                         
-                        "url": next_line,
+                        "url": next_l,
                         
                     })
                     url_found = True
                     i = j
                     break
                 else: 
-                    temp_channel_lines.append(next_line + '\n')
+                    temp_lines.append(next_l + '\n')
                 j += 1
             if url_found:
-                    processed_lines.extend(temp_channel_lines) # Thêm URL
+                    processed_text_lines.extend(temp_lines) # Thêm URL
             
         i += 1
 
-    return processed_lines, channels_in_group
+    return processed_text_lines, channels_for_json
 # ----------------- Thực thi chính -----------------
 if __name__ == "__main__":
     
@@ -125,16 +125,16 @@ if __name__ == "__main__":
             ALL_GROUPS_JSON.append({
                 "id": group_name.lower().replace("", "_"),
                 "name": group_name,
-                "channels": channels_json
+                "channels": json_data
             })
         
     #  Xóa các dòng trắng thừa
-    final_text_content = [line for line in ALL_M3U_LINES if line.strip()]
+    #final_text_content = [line for line in ALL_M3U_LINES if line.strip()]
 
      
     # 7. Ghi ra file MIN.txt
     try:
-        final_text = [line for line in ALL_M3U_LINES if line.strip()]
+        final_text = [l for l in ALL_M3U_LINES if l.strip()]
         with open(FINAL_TEXT_FILE, 'w', encoding='utf-8') as f:
             f.writelines(final_text)
         print(f"\n✅ Tổng hợp thành công: {FINAL_TEXT_FILE}")
@@ -145,6 +145,7 @@ if __name__ == "__main__":
         mon_data = {
             "id": "MOON LIST",
             "name": "List",
+            "color": "#FF6B35"
             "image": {
                 "display": "contain",
                 "url": "https://xem.hoiquan.click/HoiQuan_Mini.png"
