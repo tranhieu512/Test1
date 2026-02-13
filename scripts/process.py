@@ -72,7 +72,7 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
             channel_name = name_match.group(1).strip() if name_match else "Unknown"
         # 2. Chuẩn hóa dong EXTINF cho file Text
             line = re.sub(r'group-title="[^"]*"', f'group-title="{new_group_title}"', line)
-            temp_lines = [line +'\n'] 
+            temp_channel_lines = [line +'\n'] 
             
             
         # 3. Logic new: Tìm kiếm URL thực 
