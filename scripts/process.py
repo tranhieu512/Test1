@@ -44,11 +44,12 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()
+        lines = response.text.splitlines()
     except Exception as e: #test
         print(f"❌ Lỗi khi tải {url}: {e}")
-        return []
+        return [], []
 
-    lines = response.text.splitlines()
+   
       
     i = 0
     while i < len(lines):
@@ -116,7 +117,7 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
             
         i += 1
 
-    return processed_lines
+    return processed_lines, channels_in_group
 # ----------------- Thực thi chính -----------------
 if __name__ == "__main__":
     # 1. XỬ LÝ CÁC NGUỒN ĐỘNG (Thực hiện trước)
