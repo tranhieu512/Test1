@@ -59,20 +59,18 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
             if exclude_regex and re.search(exclude_regex, current_line): # Nếu có Regex loại trừ và kênh khớp với nó, thì bỏ qua kênh này
                 i += 1
                 continue 
-        
+            clean_line = re.sub(r'group-title="[^"]*"', f'group-title="{new_group_title}"', current_line)
+            temp_channel_lines = [clean_line +'\n']
             
-         # 1. Trich xuat du lieu cho JSON
-            tvg_id = re.search(r'tvg-id="([^"]*)"',current_line)
-            tvg_logo = re.search(r'tvg-logo="([^"]*)"', current_line)
+         #  Trich xuat du lieu cho JSON
+            tvg_id_match = re.search(r'tvg-id="([^"]*)"',current_line)
+            tvg_logo_match = re.search(r'tvg-logo="([^"]*)"', current_line)
             name_match = re.search(r',([^,]+)$', current_line)
             channel_name = name_match.group(1).strip() if name_match else "Unknown"
-        # 2. Chuẩn hóa dong EXTINF cho file Text
-            clean_line = re.sub(r'group-title="[^"]*"', f'group-title="{new_group_title}"', current_line)
-            
-            temp_channel_lines = [clean_line +'\n'] 
+        
             
             
-        # 3. Logic new: Tìm kiếm URL thực 
+        #  Logic new: Tìm kiếm URL thực 
             j = i + 1
             url_found = False
             while j < len(raw_lines):
@@ -91,10 +89,10 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
                     temp_lines.append(next_l + '\n')
                     # Luu vao danh sach JSON
                     channels_for_json.append({
-                        "id": tvg_id.group(1) if tvg_id else channel_name.lower().replace("","_"),
+                        "id": tvg_id_match.group(1) if tvg_id else channel_name.lower().replace("","_"),
                         "name": channel_name,
                         "image": {
-                            "url": tvg_logo.group(1) if (tvg_logo and tvg_logo.group(1)) else "https://xem.hoiquan.click/HoiQuan_Mini.png",
+                            "url": tvg_logo_match.group(1) if (tvg_logo_match and tvg_logo.group(1)) else "https://xem.hoiquan.click/HoiQuan_Mini.png",
                             "display": "contain"
                         },
                         
