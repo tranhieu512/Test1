@@ -1,148 +1,125 @@
 import requests
 import re
-import os
 import json
-from datetime import datetime
+import os
 
 # ------------------Cấu hình EPG-------------
-# Định nghĩa các nguồn EPG
 EPG_TVG_URLS = [
     "https://vnepg.site/epg.xml",
     "https://lichphatsong.site/schedule/epg.xml.gz",
 ]
-# Nối các URL và phân tách bằng dấu (;)
 EPG_URL_STRING=";".join(EPG_TVG_URLS)
 
-# ----------------- Cấu hình nguồn và -----------------
-# Định nghĩa các nguồn cần tải, kèm theo Regex lọc (nếu cần) và Tên Nhóm Chuẩn hóa
+# ----------------- Cấu hình nguồn -----------------
 SOURCES = [
-    # (URL, Regex lọc (giữ lại), Regex loại trừ, Tên nhóm chuẩn hóa mới)
-    ("https://raw.githubusercontent.com/tranhieu512/Test1/refs/heads/main/min1", 
-     r'"HOẠT HÌNH"',
-     None, # <--Không loại trừ
-     "HOẠT HÌNH"),
-    
-     
-    ("https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/vmttv", 
-     r'"LIVE EVENTS 🔴"',
-     None, # <--Không loại trừ
-     "LIVE EVENTS"),
-    
+    ("https://raw.githubusercontent.com/tranhieu512/Test1/refs/heads/main/min1", r'"HOẠT HÌNH"', None, "HOẠT HÌNH"),
+    ("https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/vmttv", r'"LIVE EVENTS 🔴"', None, "LIVE EVENTS"),
 ]
 
 FINAL_TEXT_FILE = "min"
-FINAL_JSON_FILE = "min.json" # xuat file json
-ALL_M3U_LINES = [f"#EXTM3U url-tvg=\"{EPG_URL_STRING}\"\n"] # Dòng header đầu tiên
-ALL_GROUPS_JSON = [] # danh sach chua du lieu cho JSON
+FINAL_JSON_FILE = "min.json"
 
 def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
-    """Tải file M3U, lọc kênh, lại trừ kênh và chuẩn hóa cho ca Text va JSON."""
     print(f"--- Đang xử lý nguồn: {url}")
     processed_text_lines = []
-    channels_in_group = []
+    channels_for_json = []
+    
     try:
-        response = requests.get(url, timeout=10)
+        response = requests.get(url, timeout=15)
         response.raise_for_status()
         raw_lines = response.text.splitlines()
-    except Exception as e: #test
+    except Exception as e:
         print(f"❌ Lỗi khi tải {url}: {e}")
-        return [], []
-         
+        return [], [] 
+
     i = 0
     while i < len(raw_lines):
         current_line = raw_lines[i].strip()
 
-        # 1. Bỏ qua các dòng không phải #EXTINF
+        # Kiểm tra nếu dòng hiện tại là #EXTINF và khớp với bộ lọc
         if current_line.startswith('#EXTINF') and re.search(filter_regex, current_line):
-            
-            # Loại trừ kênh
-            if exclude_regex and re.search(exclude_regex, current_line): # Nếu có Regex loại trừ và kênh khớp với nó, thì bỏ qua kênh này
+            if exclude_regex and re.search(exclude_regex, current_line):
                 i += 1
-                continue 
-            clean_line = re.sub(r'group-title="[^"]*"', f'group-title="{new_group_title}"', current_line)
-            temp_channel_lines = [clean_line +'\n']
+                continue
             
-         #  Trich xuat du lieu cho JSON
-            tvg_id_match = re.search(r'tvg-id="([^"]*)"',current_line)
-            tvg_logo_match = re.search(r'tvg-logo="([^"]*)"', current_line)
+            # --- QUAN TRỌNG: KHỞI TẠO BIẾN NGAY TẠI ĐÂY ---
+            clean_line = re.sub(r'group-title="[^"]*"', f'group-title="{new_group_title}"', current_line)
+            temp_lines = [clean_line + '\n'] # Khởi tạo temp_lines
+            
+            # Trích xuất thông tin cho JSON
             name_match = re.search(r',([^,]+)$', current_line)
             channel_name = name_match.group(1).strip() if name_match else "Unknown"
-        
+            tvg_id_match = re.search(r'tvg-id="([^"]*)"', current_line)
+            tvg_logo_match = re.search(r'tvg-logo="([^"]*)"', current_line)
             
-            
-        #  Logic new: Tìm kiếm URL thực 
             j = i + 1
             url_found = False
+            
+            # Vòng lặp tìm URL bên dưới dòng #EXTINF
             while j < len(raw_lines):
                 next_l = raw_lines[j].strip()
                 if not next_l:
-                    # Bỏ qua dòng trống
-                    j+=1
+                    j += 1
                     continue
-                
-                # a) Nếu gặp EXTINF mới, dừng tìm URL 
                 if next_l.startswith('#EXTINF'):
                     break
-                    
-                # b) Nếu tìm thấy URL hợp lệ (không trống và không bắt đầu bằng '#')
-                if not next_l.startswith('#'): 
-                    temp_lines.append(next_l + '\n')
-                    # Luu vao danh sach JSON
+                
+                # Lưu mọi dòng (kể cả tag phụ) vào temp_lines
+                temp_lines.append(next_l + '\n')
+                
+                # Nếu không bắt đầu bằng #, thì đây là URL chính
+                if not next_l.startswith('#'):
+                    # Đóng gói dữ liệu vào cấu trúc Monplayer
                     channels_for_json.append({
-                        "id": tvg_id_match.group(1) if tvg_id else channel_name.lower().replace("","_"),
+                        "id": tvg_id_match.group(1) if (tvg_id_match and tvg_id_match.group(1)) else channel_name.lower().replace(" ", "_"),
                         "name": channel_name,
                         "image": {
-                            "url": tvg_logo_match.group(1) if (tvg_logo_match and tvg_logo.group(1)) else "https://xem.hoiquan.click/HoiQuan_Mini.png",
+                            "url": tvg_logo_match.group(1) if (tvg_logo_match and tvg_logo_match.group(1)) else "https://xem.hoiquan.click/HoiQuan_Mini.png",
                             "display": "contain"
                         },
-                        
-                        "url": next_l,
-                        
+                        "url": next_l
                     })
                     url_found = True
                     i = j
                     break
-                else: 
-                    temp_lines.append(next_l + '\n')
                 j += 1
-            if url_found:
-                    processed_text_lines.extend(temp_lines) # Thêm URL
             
+            # Nếu tìm thấy URL hợp lệ, đẩy dữ liệu vào danh sách tổng
+            if url_found:
+                processed_text_lines.extend(temp_lines)
+        
         i += 1
-
+    
     return processed_text_lines, channels_for_json
-# ----------------- Thực thi chính -----------------
+
 if __name__ == "__main__":
-    
-    # 1. XỬ LÝ CÁC NGUỒN ĐỘNG (Thực hiện trước)
-    for url, regex_keep, regex_exclude, group_name in SOURCES:
-        text_data, json_data = fetch_and_process(url, regex_keep, regex_exclude, group_name)
-        ALL_M3U_LINES.extend(text_data)
-    
-        if json_data:
+    ALL_M3U_LINES = [f"#EXTM3U url-tvg=\"{EPG_URL_STRING}\"\n"]
+    ALL_GROUPS_JSON = [] 
+
+    for url, filter_reg, exclude_reg, g_name in SOURCES:
+        t_data, j_data = fetch_and_process(url, filter_reg, exclude_reg, g_name)
+        ALL_M3U_LINES.extend(t_data)
+        
+        if j_data:
             ALL_GROUPS_JSON.append({
-                "id": group_name.lower().replace("", "_"),
-                "name": group_name,
-                "channels": json_data
+                "id": g_name.lower().replace(" ", "_"),
+                "name": g_name,
+                "channels": j_data
             })
         
-    #  Xóa các dòng trắng thừa
-    #final_text_content = [line for line in ALL_M3U_LINES if line.strip()]
-
-     
-    # 7. Ghi ra file MIN.txt
+    # Ghi file TEXT (M3U)
     try:
-        final_text = [l for l in ALL_M3U_LINES if l.strip()]
         with open(FINAL_TEXT_FILE, 'w', encoding='utf-8') as f:
-            f.writelines(final_text)
-        print(f"\n✅ Tổng hợp thành công: {FINAL_TEXT_FILE}")
+            f.writelines([l for l in ALL_M3U_LINES if l.strip()])
+        print(f"✅ Đã lưu file TEXT: {FINAL_TEXT_FILE}")
     except Exception as e:
-        print(f"❌ Lỗi khi ghi file TXT: {e}")
-    # 8. Xuat file JSON
+        print(f"❌ Lỗi ghi file TEXT: {e}")
+    
+    # Ghi file JSON (Cấu trúc phân cấp cho Monplayer)
     try:
         mon_data = {
-            "id": "MOON LIST",
-            "name": "List",
+            "id": "MyPlaylist",
+            "name": "DANH SÁCH TỔNG HỢP",
             "color": "#FF6B35",
             "image": {
                 "display": "contain",
@@ -152,6 +129,6 @@ if __name__ == "__main__":
         }
         with open(FINAL_JSON_FILE, 'w', encoding='utf-8') as f:
             json.dump(mon_data, f, ensure_ascii=False, indent=4)
-        print(f"✅ Tổng hợp thành công JSON: {FINAL_JSON_FILE}")
+        print(f"✅ Đã lưu file JSON Monplayer!")
     except Exception as e:
-        print(f"❌ Lỗi khi ghi file JSON: {e}")
+        print(f"❌ Lỗi ghi file JSON: {e}")
