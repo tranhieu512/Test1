@@ -120,8 +120,8 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
 # ----------------- Thực thi chính -----------------
 if __name__ == "__main__":
     # 1. XỬ LÝ CÁC NGUỒN ĐỘNG (Thực hiện trước)
-    for url, regex_keep, regex_exclude, group in SOURCES:
-        channel_list = fetch_and_process(url, regex_keep, regex_exclude, group)
+    for url, regex_keep, regex_exclude, group_name in SOURCES:
+        channel_list, channels_json = fetch_and_process(url, regex_keep, regex_exclude, group_name)
         ALL_M3U_LINES.extend(channel_list)
     # 2. THÊM KÊNH CỐ ĐỊNH (Thực hiện sau, ở cuối danh sách)
     #print(f"\n✅ Đang thêm {len(STATIC_CHANNELS) // 2} kênh cố định vào cuối danh sách...")
