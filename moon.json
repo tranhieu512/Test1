@@ -1,12 +1,12 @@
 {
     "channels": [
         {
-            "id": "htv1",
-            "name": "HTV1",
+            "id": "HOẠT HÌNH",
+            "name": "Phi Vụ Động Trời 1",
             "image": {
                 "display": "cover",
                 "shape": "square",
-                "url": "https://toiyeuvietnam.dpdns.org/Logo/htv1/KenhCoBan",
+                "url": "https://phimapi.com/image.php?url=https://phimimg.com/upload/vod/20250731-1/f558a7bb32c571adbac1a74ba3218179.jpg",
                 "height": 101,
                 "width": 155
             },
@@ -14,28 +14,28 @@
             "display": "text-below",
             "sources": [
                 {
-                    "id": "htv1",
+                    "id": "HOẠT HÌNH",
                     "name": "",
                     "contents": [
                         {
-                            "id": "htv1",
+                            "id": "HOẠT HÌNH",
                             "name": "",
                             "streams": [
                                 {
-                                    "id": "htv1",
-                                    "name": "HTV1",
+                                    "id": "HOẠT HÌNH",
+                                    "name": "Phi Vụ Động Trời 1",
                                     "image": {
                                         "display": "contain",
                                         "shape": "square",
-                                        "url": "https://toiyeuvietnam.dpdns.org/Logo/htv1/KenhCoBan",
+                                        "url": "https://phimapi.com/image.php?url=https://phimimg.com/upload/vod/20250731-1/f558a7bb32c571adbac1a74ba3218179.jpg",
                                         "height": 101,
                                         "width": 155
                                     },
                                     "stream_links": [
                                         {
-                                            "id": "htv1",
-                                            "name": "HTV1",
-                                            "url": "https://toiyeuvietnam.dpdns.org/TuyetDoiKhongKinhDoanh/htv1/KenhCoBan.m3u8",
+                                            "id": "HOẠT HÌNH",
+                                            "name": "Phi Vụ Động Trời 1",
+                                            "url": "https://s6.kkphimplayer6.com/20250731/EtyEW7gL/index.m3u8",
                                             "type": "hls",
                                             "default": true
                                         }
@@ -675,7 +675,7 @@
     ],
     "count": 14,
     "group": "knh-htv",
-    "group_name": "Kênh HTV",
+    "group_name": "HOẠT HÌNH",
     "timestamp": "2026-02-05 17:46:56",
     "display": "horizontal",
     "enable_detail": true
