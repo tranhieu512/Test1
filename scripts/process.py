@@ -152,7 +152,7 @@ if __name__ == "__main__":
     # 8. Xuat file JSON
     try:
         with open(FINAL_JSON_FILE, 'w', encoding='utf-8') as f:
-            json.dump(ALL_CHANNELS_DATA, f, ensure_ascii=False, indent=4)
-        print(f"✅ Tổng hợp thành công JSON: {FINAL_JSON_FILE} (Tong cong {len(ALL_JSON_DATA)} kenh)")
+            json.dump(ALL_JSON_DATA, f, ensure_ascii=False, indent=4)
+        print(f"✅ Tổng hợp thành công JSON: {FINAL_JSON_FILE}")
     except Exception as e:
         print(f"❌ Lỗi khi ghi file JSON: {e}")
