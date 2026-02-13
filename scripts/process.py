@@ -91,7 +91,7 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
                     
                 # b) Nếu tìm thấy URL hợp lệ (không trống và không bắt đầu bằng '#')
                 if not next_line.startswith('#'): 
-                    temp_lines.append(next_line + '\n')
+                    temp_channel_lines.append(next_line + '\n')
                     # Luu vao danh sach JSON
                     channels_in_group.append({
                         "id": tvg_id.group(1) if tvg_id else channel_name,
