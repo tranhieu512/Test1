@@ -92,11 +92,13 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
                     temp_lines.append(next_line + '\n')
                     # Luu vao danh sach JSON
                     ALL_JSON_DATA.append({
+                        "title": name_match.group(1).strip() if name_match else "Unknown",
                         "name": name_match.group(1).strip() if name_match else "Unknown",
                         "tvg_id": tvg_id.group(1) if tvg_id else "",
                         "logo": tvg_logo.group(1) if tvg_logo else "",
                         "group": new_group_title,
-                        "url": next_line
+                        "url": next_line,
+                        "link": next_line
                     })
                     url_found = True
                     i = j
@@ -151,6 +153,10 @@ if __name__ == "__main__":
         print(f"❌ Lỗi khi ghi file TXT: {e}")
     # 8. Xuat file JSON
     try:
+        w3u_wrapper = {
+            "name": "IPTV MIN LIST",
+            "author": "TTH",
+            "stations": ALL_JSON_DATA
         with open(FINAL_JSON_FILE, 'w', encoding='utf-8') as f:
             json.dump(ALL_JSON_DATA, f, ensure_ascii=False, indent=4)
         print(f"✅ Tổng hợp thành công JSON: {FINAL_JSON_FILE}")
