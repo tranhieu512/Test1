@@ -53,7 +53,7 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
         current_line = raw_lines[i].strip()
 
         # 1. Bỏ qua các dòng không phải #EXTINF
-        if line.startswith('#EXTINF') and re.search(filter_regex, current_line):
+        if current_line.startswith('#EXTINF') and re.search(filter_regex, current_line):
             
             # Loại trừ kênh
             if exclude_regex and re.search(exclude_regex, current_line): # Nếu có Regex loại trừ và kênh khớp với nó, thì bỏ qua kênh này
