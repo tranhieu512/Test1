@@ -131,7 +131,7 @@ if __name__ == "__main__":
     #temp_static_content = [line + '\n' for line in STATIC_CHANNELS] 
     #ALL_M3U_LINES.extend(temp_static_content)
         if channels_json:
-            ALL-GROUPS_JSON.append({
+            ALL_GROUPS_JSON.append({
                 "id": group_name.lower().replace("", "_"),
                 "name": group_name,
                 "channels": channels_json
