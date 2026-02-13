@@ -34,7 +34,7 @@ SOURCES = [
 FINAL_TEXT_FILE = "min"
 FINAL_JSON_FILE = "min.json" # xuat file json
 ALL_M3U_LINES = [f"#EXTM3U url-tvg=\"{EPG_URL_STRING}\"\n"] # Dòng header đầu tiên
-ALL_CHANNELS_DATA = [] # danh sach chua du lieu cho JSON
+ALL_JSON_DATA = [] # danh sach chua du lieu cho JSON
 
 def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
     """Tải file M3U, lọc kênh, lại trừ kênh và chuẩn hóa cho ca Text va JSON."""
@@ -91,7 +91,7 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
                 if not next_line.startswith('#'): 
                     temp_lines.append(next_line + '\n')
                     # Luu vao danh sach JSON
-                    ALL_CHANNELS_DATA.append({
+                    ALL_JSON_DATA.append({
                         "name": name_match.group(1).strip() if name_match else "Unknown",
                         "tvg_id": tvg_id.group(1) if tvg_id else "",
                         "logo": tvg_logo.group(1) if tvg_logo else "",
