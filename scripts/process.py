@@ -108,11 +108,11 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
                     url_found = True
                     i = j
                     break
-                else:
-temp_channel_lines.append(next_line + '\n')
+                else: 
+                    temp_channel_lines.append(next_line + '\n')
                 j += 1
             if url_found:
-processed_lines.extend(temp_channel_lines) # Thêm URL
+                    processed_lines.extend(temp_channel_lines) # Thêm URL
             
         i += 1
 
