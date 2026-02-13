@@ -156,7 +156,8 @@ if __name__ == "__main__":
         w3u_wrapper = {
             "name": "IPTV MIN LIST",
             "author": "TTH",
-            "stations": ALL_JSON_DATA }
+            "stations": ALL_JSON_DATA
+        }
         with open(FINAL_JSON_FILE, 'w', encoding='utf-8') as f:
             json.dump(ALL_JSON_DATA, f, ensure_ascii=False, indent=4)
         print(f"✅ Tổng hợp thành công JSON: {FINAL_JSON_FILE}")
