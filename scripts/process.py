@@ -13,7 +13,7 @@ EPG_TVG_URLS = [
 # Nối các URL và phân tách bằng dấu (;)
 EPG_URL_STRING=";".join(EPG_TVG_URLS)
 
-# ----------------- Cấu hình nguồn và đích -----------------
+# ----------------- Cấu hình nguồn và -----------------
 # Định nghĩa các nguồn cần tải, kèm theo Regex lọc (nếu cần) và Tên Nhóm Chuẩn hóa
 SOURCES = [
     # (URL, Regex lọc (giữ lại), Regex loại trừ, Tên nhóm chuẩn hóa mới)
@@ -29,7 +29,6 @@ SOURCES = [
      "LIVE EVENTS"),
     
 ]
-
 
 FINAL_TEXT_FILE = "min"
 FINAL_JSON_FILE = "min.json" # xuat file json
@@ -48,9 +47,7 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
     except Exception as e: #test
         print(f"❌ Lỗi khi tải {url}: {e}")
         return [], []
-
-   
-      
+         
     i = 0
     while i < len(lines):
         line = lines[i].strip()
@@ -64,16 +61,15 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
                 continue 
         
             
-            # processed_lines.append(line + '\n') # Thêm dòng EXTINF đã xử lý
-
-        # 1. Trich xuat du lieu cho JSON
+         # 1. Trich xuat du lieu cho JSON
             tvg_id = re.search(r'tvg-id="([^"]*)"',line)
             tvg_logo = re.search(r'tvg-logo="([^"]*)"', line)
             name_match = re.search(r',([^,]+)$', line)
             channel_name = name_match.group(1).strip() if name_match else "Unknown"
         # 2. Chuẩn hóa dong EXTINF cho file Text
             line = re.sub(r'group-title="[^"]*"', f'group-title="{new_group_title}"', line)
-            temp_channel_lines = [line +'\n'] 
+            
+            temp_channel_lines = [line_text +'\n'] 
             
             
         # 3. Logic new: Tìm kiếm URL thực 
@@ -95,16 +91,15 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
                     temp_channel_lines.append(next_line + '\n')
                     # Luu vao danh sach JSON
                     channels_in_group.append({
-                        "id": tvg_id.group(1) if tvg_id else channel_name,
+                        "id": tvg_id.group(1) if tvg_id else channel_name.lower().replace("","_"),
                         "name": channel_name,
-                        "title": channel_name,
                         "image": {
                             "url": tvg_logo.group(1) if tvg_logo else "",
                             "display": "contain"
                         },
                         
                         "url": next_line,
-                        "link": next_line
+                        
                     })
                     url_found = True
                     i = j
@@ -120,44 +115,28 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
     return processed_lines, channels_in_group
 # ----------------- Thực thi chính -----------------
 if __name__ == "__main__":
+    
     # 1. XỬ LÝ CÁC NGUỒN ĐỘNG (Thực hiện trước)
     for url, regex_keep, regex_exclude, group_name in SOURCES:
-        channel_list, channels_json = fetch_and_process(url, regex_keep, regex_exclude, group_name)
-        ALL_M3U_LINES.extend(channel_list)
-    # 2. THÊM KÊNH CỐ ĐỊNH (Thực hiện sau, ở cuối danh sách)
-    #print(f"\n✅ Đang thêm {len(STATIC_CHANNELS) // 2} kênh cố định vào cuối danh sách...")
+        text_data, json_data = fetch_and_process(url, regex_keep, regex_exclude, group_name)
+        ALL_M3U_LINES.extend(text_data)
     
-    # ❗️ Đảm bảo dòng này thẳng hàng với các dòng xử lý chính khác
-    #temp_static_content = [line + '\n' for line in STATIC_CHANNELS] 
-    #ALL_M3U_LINES.extend(temp_static_content)
-        if channels_json:
+        if json_data:
             ALL_GROUPS_JSON.append({
                 "id": group_name.lower().replace("", "_"),
                 "name": group_name,
                 "channels": channels_json
             })
         
-    # 3. Xóa các dòng trắng thừa
+    #  Xóa các dòng trắng thừa
     final_text_content = [line for line in ALL_M3U_LINES if line.strip()]
 
-    # 4. Chuyển list các dòng thành một chuỗi duy nhất để dễ dàng xử lý
-    #content_string = "".join(final_content)
-
-    # 5. Ghi ra file MIN.m3u # Đã ẩn
-    #try:
-    #    with open(FINAL_OUTPUT_FILE, 'w', encoding='utf-8') as f:
-    #        f.write(content_string)
-    #    print(f"\n✅ Tổng hợp thành công {len(final_content)} dòng vào {FINAL_OUTPUT_FILE}")
-    #except Exception as e:
-    #    print(f"❌ Lỗi khi ghi file: {e}")
-    
-    # 6. Tạo nội dung cho file MIN.txt
-    #text_content_string = content_string
-    
+     
     # 7. Ghi ra file MIN.txt
     try:
+        final_text = [line for line in ALL_M3U_LINES if line.strip()]
         with open(FINAL_TEXT_FILE, 'w', encoding='utf-8') as f:
-            f.writelines(final_text_content)
+            f.writelines(final_text)
         print(f"\n✅ Tổng hợp thành công: {FINAL_TEXT_FILE}")
     except Exception as e:
         print(f"❌ Lỗi khi ghi file TXT: {e}")
@@ -166,6 +145,10 @@ if __name__ == "__main__":
         mon_data = {
             "id": "MOON LIST",
             "name": "List",
+            "image": {
+                "display": "contain",
+                "url": "https://xem.hoiquan.click/HoiQuan_Mini.png"
+            }
             "groups": ALL_GROUPS_JSON
         }
         with open(FINAL_JSON_FILE, 'w', encoding='utf-8') as f:
