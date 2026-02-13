@@ -39,6 +39,6 @@ jobs:
       - name: ⬆️ Commit and Push Updated M3U
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          file_pattern: min
+          file_pattern: 'min min.json'
           #file_pattern: MIN.json MIN.txt
           commit_message: "Auto Update in ${{ env.DATE }}!✨MIN✨!"
