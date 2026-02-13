@@ -126,7 +126,7 @@ if __name__ == "__main__":
     #ALL_M3U_LINES.extend(temp_static_content)
         
     # 3. Xóa các dòng trắng thừa
-    final_content = [line for line in ALL_M3U_LINES if line.strip()]
+    final_text_content = [line for line in ALL_M3U_LINES if line.strip()]
 
     # 4. Chuyển list các dòng thành một chuỗi duy nhất để dễ dàng xử lý
     #content_string = "".join(final_content)
@@ -151,7 +151,7 @@ if __name__ == "__main__":
         print(f"❌ Lỗi khi ghi file TXT: {e}")
     # 8. Xuat file JSON
     try:
-        with open(FINAL_JSON_FILE, 'w', endcoding='utf-8') as f:
+        with open(FINAL_JSON_FILE, 'w', encoding='utf-8') as f:
             json.dump(ALL_CHANNELS_DATA, f, ensure_ascii=False, indent=4)
         print(f"✅ Tổng hợp thành công JSON: {FINAL_JSON_FILE} (Tong cong {len(ALL_JSON_DATA)} kenh)")
     except Exception as e:
