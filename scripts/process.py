@@ -148,7 +148,7 @@ if __name__ == "__main__":
             "image": {
                 "display": "contain",
                 "url": "https://xem.hoiquan.click/HoiQuan_Mini.png"
-            }
+            },
             "groups": ALL_GROUPS_JSON
         }
         with open(FINAL_JSON_FILE, 'w', encoding='utf-8') as f:
