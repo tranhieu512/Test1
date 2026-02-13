@@ -36,17 +36,17 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
     while i < len(raw_lines):
         current_line = raw_lines[i].strip()
 
-        # Kiểm tra nếu dòng hiện tại là #EXTINF và khớp với bộ lọc
+        # Kiểm tra dòng #EXTINF
         if current_line.startswith('#EXTINF') and re.search(filter_regex, current_line):
             if exclude_regex and re.search(exclude_regex, current_line):
                 i += 1
                 continue
             
-            # --- QUAN TRỌNG: KHỞI TẠO BIẾN NGAY TẠI ĐÂY ---
+            # --- KHỞI TẠO BIẾN NGAY TẠI ĐÂY ---
             clean_line = re.sub(r'group-title="[^"]*"', f'group-title="{new_group_title}"', current_line)
-            temp_lines = [clean_line + '\n'] # Khởi tạo temp_lines
+            temp_lines = [clean_line + '\n'] 
             
-            # Trích xuất thông tin cho JSON
+            # Trích xuất thông tin
             name_match = re.search(r',([^,]+)$', current_line)
             channel_name = name_match.group(1).strip() if name_match else "Unknown"
             tvg_id_match = re.search(r'tvg-id="([^"]*)"', current_line)
@@ -55,7 +55,7 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
             j = i + 1
             url_found = False
             
-            # Vòng lặp tìm URL bên dưới dòng #EXTINF
+            # Tìm URL phía sau dòng #EXTINF
             while j < len(raw_lines):
                 next_l = raw_lines[j].strip()
                 if not next_l:
@@ -64,12 +64,11 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
                 if next_l.startswith('#EXTINF'):
                     break
                 
-                # Lưu mọi dòng (kể cả tag phụ) vào temp_lines
+                # Bất kể là dòng gì (URL hay tag phụ), đều thêm vào temp_lines
                 temp_lines.append(next_l + '\n')
                 
-                # Nếu không bắt đầu bằng #, thì đây là URL chính
+                # Nếu không bắt đầu bằng #, đây chính là URL stream
                 if not next_l.startswith('#'):
-                    # Đóng gói dữ liệu vào cấu trúc Monplayer
                     channels_for_json.append({
                         "id": tvg_id_match.group(1) if (tvg_id_match and tvg_id_match.group(1)) else channel_name.lower().replace(" ", "_"),
                         "name": channel_name,
@@ -80,11 +79,10 @@ def fetch_and_process(url, filter_regex, exclude_regex, new_group_title):
                         "url": next_l
                     })
                     url_found = True
-                    i = j
+                    i = j # Nhảy chỉ số i đến dòng URL
                     break
                 j += 1
             
-            # Nếu tìm thấy URL hợp lệ, đẩy dữ liệu vào danh sách tổng
             if url_found:
                 processed_text_lines.extend(temp_lines)
         
@@ -115,7 +113,7 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"❌ Lỗi ghi file TEXT: {e}")
     
-    # Ghi file JSON (Cấu trúc phân cấp cho Monplayer)
+    # Ghi file JSON (Đúng định dạng Monplayer yêu cầu)
     try:
         mon_data = {
             "id": "MyPlaylist",
@@ -129,6 +127,6 @@ if __name__ == "__main__":
         }
         with open(FINAL_JSON_FILE, 'w', encoding='utf-8') as f:
             json.dump(mon_data, f, ensure_ascii=False, indent=4)
-        print(f"✅ Đã lưu file JSON Monplayer!")
+        print(f"✅ Đã lưu file JSON chuẩn Monplayer!")
     except Exception as e:
         print(f"❌ Lỗi ghi file JSON: {e}")
