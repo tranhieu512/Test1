@@ -351,6 +351,15 @@
                     "url": "https://rumble.com/hls-vod/73txdq/playlist.m3u8"
                 },
                 {
+                    "id": "hùng_long_phong_bá_phần_4_-_tập_cuối",
+                    "name": "Hùng Long Phong Bá Phần 4 - Tập Cuối",
+                    "image": {
+                        "url": "https://images.fptplay53.net/media/OTT/VOD/2026/02/11/hung-long-phong-ba-4-fpt-play-1770804850859_Landscape.jpg",
+                        "display": "contain"
+                    },
+                    "url": "https://rumble.com/hls-vod/73vrdu/playlist.m3u8"
+                },
+                {
                     "id": "oshi_no_ko_phần_3_-_tập_1",
                     "name": "Oshi No Ko Phần 3 - Tập 1",
                     "image": {
@@ -385,6 +394,15 @@
                         "display": "contain"
                     },
                     "url": "https://rumble.com/hls-vod/73gpe4/playlist.m3u8"
+                },
+                {
+                    "id": "oshi_no_ko_phần_3_-_tập_5",
+                    "name": "Oshi No Ko Phần 3 - Tập 5",
+                    "image": {
+                        "url": "https://images.fptplay53.net/media/OTT/VOD/2026/01/12/dua-con-cua-than-tuong-phan-3-fpt-play-1768204408459_Background_origin.jpg",
+                        "display": "contain"
+                    },
+                    "url": "https://rumble.com/hls-vod/73uq6q/playlist.m3u8"
                 }
             ]
         }
