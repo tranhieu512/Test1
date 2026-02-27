@@ -360,6 +360,15 @@
                     "url": "https://rumble.com/hls-vod/73vrdu/playlist.m3u8"
                 },
                 {
+                    "id": "thế_hệ_kỳ_tích",
+                    "name": "Thế Hệ Kỳ Tích",
+                    "image": {
+                        "url": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/Th%E1%BA%BF%20H%E1%BB%87%20K%E1%BB%B3%20T%C3%ADch.jpg",
+                        "display": "contain"
+                    },
+                    "url": "https://rumble.com/hls-vod/745t9a/playlist.m3u8"
+                },
+                {
                     "id": "oshi_no_ko_phần_3_-_tập_1",
                     "name": "Oshi No Ko Phần 3 - Tập 1",
                     "image": {
