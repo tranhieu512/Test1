@@ -369,6 +369,15 @@
                     "url": "https://rumble.com/hls-vod/745t9a/playlist.m3u8"
                 },
                 {
+                    "id": "tay_anh_giữ_một_vì_sao",
+                    "name": "Tay Anh Giữ Một Vì Sao",
+                    "image": {
+                        "url": "https://thegioidienanh.vn/stores/news_dataimages/2025/092025/14/13/in_social/tay-anh-giu-mot-vi-sao-payoff-poster-social-khoi-chieu-0310202520250914134014.jpg",
+                        "display": "contain"
+                    },
+                    "url": "https://vip.opstream90.com/20260102/21538_3a9ba451/3000k/hls/mixed.m3u8"
+                },
+                {
                     "id": "oshi_no_ko_phần_3_-_tập_1",
                     "name": "Oshi No Ko Phần 3 - Tập 1",
                     "image": {
