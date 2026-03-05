@@ -378,6 +378,15 @@
                     "url": "https://vip.opstream90.com/20260102/21538_3a9ba451/3000k/hls/mixed.m3u8"
                 },
                 {
+                    "id": "truy_tìm_long_diên_hương",
+                    "name": "Truy Tìm Long Diên Hương",
+                    "image": {
+                        "url": "https://cdn-images.vtv.vn/zoom/554_346/66349b6076cb4dee98746cf1/2025/09/19/truy-tim-long-dien-huong-67756442926310209483416-92025497027105625698228.jpg",
+                        "display": "contain"
+                    },
+                    "url": "https://rumble.com/hls-vod/74h9mw/playlist.m3u8"
+                },
+                {
                     "id": "oshi_no_ko_phần_3_-_tập_1",
                     "name": "Oshi No Ko Phần 3 - Tập 1",
                     "image": {
