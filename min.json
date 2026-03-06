@@ -448,6 +448,15 @@
                         "display": "contain"
                     },
                     "url": "https://rumble.com/hls-vod/74da00/playlist.m3u8"
+                },
+                {
+                    "id": "oshi_no_ko_phần_3_-_tập_8",
+                    "name": "Oshi No Ko Phần 3 - Tập 8",
+                    "image": {
+                        "url": "https://images.fptplay53.net/media/OTT/VOD/2026/01/12/dua-con-cua-than-tuong-phan-3-fpt-play-1768204408459_Background_origin.jpg",
+                        "display": "contain"
+                    },
+                    "url": "https://vip.opstream90.com/20260305/26504_404d52bf/3000k/hls/mixed.m3u8"
                 }
             ]
         }
