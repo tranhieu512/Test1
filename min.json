@@ -189,15 +189,6 @@
                     "url": "https://s4.phim1280.tv/20250323/KmdatGKe/3000kb/hls/index.m3u8"
                 },
                 {
-                    "id": "doraemon_movie_44:_nobita_và_cuộc_phiêu_lưu_vào_thế_giới_trong_tranh_(bản_vietsub)",
-                    "name": "Doraemon Movie 44: Nobita và cuộc phiêu lưu vào thế giới trong tranh (bản vietsub)",
-                    "image": {
-                        "url": "https://kenh14cdn.com/203336854389633024/2025/5/24/ngangcc690d7e-1620-4524-aafa-a7496c81f6f6-174807929920015425666-1748084313655-17480843144601375971451.jpg",
-                        "display": "contain"
-                    },
-                    "url": "https://dl.dropboxusercontent.com/scl/fi/yvvlntkqerm1xvlhbfadc/Xem-Phim-Doraemon-Movie-44-Nobita-V-Cu-c-Phi-u-L-u-V-o-Th-Gi-i-Trong-Tranh-Doraemon-the-Movie-Nobitas-Art-World-Tales-Vietsub-RoPhim.mp4?rlkey=z2dujfvestltu7lpcaz2x1fnw&e=1&st=1drx6hkz&dl=0"
-                },
-                {
                     "id": "doraemon_movie_44:_nobita_và_cuộc_phiêu_lưu_vào_thế_giới_trong_tranh_(bản_lồng_tiếng)",
                     "name": "Doraemon Movie 44: Nobita và cuộc phiêu lưu vào thế giới trong tranh (bản lồng tiếng)",
                     "image": {
@@ -466,6 +457,15 @@
                         "display": "contain"
                     },
                     "url": "https://v7.kkphimplayer7.com/20260504/9JB48ezG/3500kb/hls/index.m3u8"
+                },
+                {
+                    "id": "cuốc_xe_âm_phủ_-_tập_4",
+                    "name": "Cuốc Xe Âm Phủ - Tập 4",
+                    "image": {
+                        "url": "https://images.fptplay53.net/media/OTT/VOD/2026/04/30/cuoc-xe-am-phu-fpt-play-1777541165464_Background_origin.jpg",
+                        "display": "contain"
+                    },
+                    "url": "https://v7.kkphimplayer7.com/20260504/xNE4czZl/3500kb/hls/index.m3u8"
                 },
                 {
                     "id": "oshi_no_ko_phần_3_-_tập_1",
