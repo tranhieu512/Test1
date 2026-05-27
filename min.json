@@ -414,15 +414,6 @@
                     "url": "https://s6.kkphimplayer6.com/20260403/6UwV8LAv/3500kb/hls/index.m3u8"
                 },
                 {
-                    "id": "huyền_tình_dạ_trạch",
-                    "name": "Huyền Tình Dạ Trạch",
-                    "image": {
-                        "url": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/huyentinhdatrach.jpg",
-                        "display": "contain"
-                    },
-                    "url": "https://rumble.com/hls-vod/76srew/playlist.m3u8"
-                },
-                {
                     "id": "nhà_mình_đi_thôi",
                     "name": "Nhà Mình Đi Thôi",
                     "image": {
