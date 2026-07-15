@@ -504,6 +504,15 @@
                     "url": "https://v7.kkphimplayer7.com/20260617/QgEs8NDH/index.m3u8"
                 },
                 {
+                    "id": "cưới_vợ_cho_cha",
+                    "name": "Cưới Vợ Cho Cha",
+                    "image": {
+                        "url": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/cuoivochocha.jpg",
+                        "display": "contain"
+                    },
+                    "url": "https://v7.kkphimplayer7.com/20260711/ATJuS0IV/3500kb/hls/index.m3u8"
+                },
+                {
                     "id": "oshi_no_ko_phần_3_-_tập_1",
                     "name": "Oshi No Ko Phần 3 - Tập 1",
                     "image": {
