@@ -531,6 +531,15 @@
                     "url": "https://v7.kkphimplayer7.com/20260820/QT327Pkh/3500kb/hls/index.m3u8"
                 },
                 {
+                    "id": "anh_hùng",
+                    "name": "Anh Hùng",
+                    "image": {
+                        "url": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/anh-hung.jpg",
+                        "display": "contain"
+                    },
+                    "url": "https://v7.kkphimplayer7.com/20260821/1tcAZTSo/3500kb/hls/index.m3u8"
+                },
+                {
                     "id": "oshi_no_ko_phần_3_-_tập_1",
                     "name": "Oshi No Ko Phần 3 - Tập 1",
                     "image": {
