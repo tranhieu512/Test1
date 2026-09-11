@@ -664,6 +664,15 @@
                         "display": "contain"
                     },
                     "url": "https://rumble.com/hls-vod/75uhgc/playlist.m3u8"
+                },
+                {
+                    "id": "mùi_phở",
+                    "name": "Mùi Phở",
+                    "image": {
+                        "url": "https://vntravel.org.vn/zoom-share/1200x630/uploads/images/2026/01/21/mp2-1768933054.jpg",
+                        "display": "contain"
+                    },
+                    "url": "https://v7.kkphimplayer7.com/20260901/EHFkQ2Wy/3500kb/hls/index.m3u8"
                 }
             ]
         }
