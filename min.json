@@ -673,6 +673,15 @@
                         "display": "contain"
                     },
                     "url": "https://v7.kkphimplayer7.com/20260901/EHFkQ2Wy/3500kb/hls/index.m3u8"
+                },
+                {
+                    "id": "hẹn_em_ngày_nhật_thực",
+                    "name": "Hẹn Em Ngày Nhật Thực",
+                    "image": {
+                        "url": "https://images.fptplay53.net/media/OTT_ECS/2026/09/11/henemngaynhatthucmeetmeattheeclipse20261920x1080s_1789101634921.jpg",
+                        "display": "contain"
+                    },
+                    "url": "https://v7.kkphimplayer7.com/20260910/Y3IBebUU/index.m3u8"
                 }
             ]
         }
