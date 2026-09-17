@@ -682,6 +682,15 @@
                         "display": "contain"
                     },
                     "url": "https://v7.kkphimplayer7.com/20260910/Y3IBebUU/index.m3u8"
+                },
+                {
+                    "id": "conan_movie_29:_thiên_thần_sa_ngã_trên_sa_lộ_(vietsub)",
+                    "name": "Conan Movie 29: Thiên thần sa ngã trên sa lộ (Vietsub)",
+                    "image": {
+                        "url": "https://media.vov.vn/sites/default/files/styles/large/public/2026-07/conan-2.jpg",
+                        "display": "contain"
+                    },
+                    "url": "https://v7.kkphimplayer7.com/20260718/iH6o7Ll4/3500kb/hls/index.m3u8"
                 }
             ]
         }
