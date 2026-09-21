@@ -691,6 +691,15 @@
                         "display": "contain"
                     },
                     "url": "https://v7.kkphimplayer7.com/20260718/iH6o7Ll4/3500kb/hls/index.m3u8"
+                },
+                {
+                    "id": "song_hỷ_lâm_nguy",
+                    "name": "Song Hỷ Lâm Nguy",
+                    "image": {
+                        "url": "https://images.fptplay53.net/media/OTT_ECS/2026/09/18/songhylamnguybghd_1789727472746.jpg",
+                        "display": "contain"
+                    },
+                    "url": "https://a.kvp726.com/20260919/pV94M4PR/3500kb/hls/index.m3u8"
                 }
             ]
         }
