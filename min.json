@@ -700,6 +700,15 @@
                         "display": "contain"
                     },
                     "url": "https://a.kvp726.com/20260919/pV94M4PR/3500kb/hls/index.m3u8"
+                },
+                {
+                    "id": "ma_xó",
+                    "name": "Ma Xó",
+                    "image": {
+                        "url": "https://img-zlr1.tv360.vn/image1/2026/09/16/15/1789548094949/f99e2210649c_640_360.jpg",
+                        "display": "contain"
+                    },
+                    "url": "https://rumble.com/hls-vod/lDgA-kgokls/playlist.m3u8"
                 }
             ]
         }
