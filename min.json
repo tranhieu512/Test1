@@ -714,10 +714,19 @@
                     "id": "phá_đám:_sinh_nhật_mẹ",
                     "name": "Phá Đám: Sinh Nhật Mẹ",
                     "image": {
-                        "url": " https://images.fptplay53.net/media/OTT_ECS/2026/09/30/phadamsinhnhatmerebirthday20251920x1080_1790760696285.jpg",
+                        "url": "https://images.fptplay53.net/media/OTT_ECS/2026/09/30/phadamsinhnhatmerebirthday20251920x1080_1790760696285.jpg",
                         "display": "contain"
                     },
                     "url": "https://rumble.com/hls-vod/I43eXt8DNJE/playlist.m3u8"
+                },
+                {
+                    "id": "bẫy_tiền:_cú_lừa_tiền_tỉ",
+                    "name": "Bẫy Tiền: Cú Lừa Tiền Tỉ",
+                    "image": {
+                        "url": "https://images.fptplay53.net/media/OTT_ECS/2026/10/12/baytienthefataldealz20261920x10801_1791800464791.jpg",
+                        "display": "contain"
+                    },
+                    "url": "https://a.kvp726.com/20261013/cbcYptZk/3500kb/hls/index.m3u8"
                 }
             ]
         }
