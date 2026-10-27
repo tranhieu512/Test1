@@ -727,6 +727,15 @@
                         "display": "contain"
                     },
                     "url": "https://a.kvp726.com/20261013/cbcYptZk/3500kb/hls/index.m3u8"
+                },
+                {
+                    "id": "quỷ_bắt_hồn",
+                    "name": "Quỷ Bắt Hồn",
+                    "image": {
+                        "url": "https://images.fptplay53.net/media/OTT_ECS/2026/10/23/quy-bat-hon20261920x1080s_1792750378911.jpg",
+                        "display": "contain"
+                    },
+                    "url": "https://a.kvp726.com/20261026/2clev3ZX/3500kb/hls/index.m3u8"
                 }
             ]
         }
