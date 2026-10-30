@@ -736,6 +736,15 @@
                         "display": "contain"
                     },
                     "url": "https://a.kvp726.com/20261026/2clev3ZX/3500kb/hls/index.m3u8"
+                },
+                {
+                    "id": "dưới_đáy_hồ",
+                    "name": "Dưới Đáy Hồ",
+                    "image": {
+                        "url": "https://images.fptplay53.net/media/OTT_ECS/2026/10/23/duoidayhothelake20251920x1080s_1792750430617.jpg",
+                        "display": "contain"
+                    },
+                    "url": "https://a.kvp726.com/20261030/PhvUF3XB/3500kb/hls/index.m3u8"
                 }
             ]
         }
