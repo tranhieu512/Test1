@@ -745,6 +745,15 @@
                         "display": "contain"
                     },
                     "url": "https://a.kvp726.com/20261030/PhvUF3XB/3500kb/hls/index.m3u8"
+                },
+                {
+                    "id": "kế_hoạch_cm12_-_tập_1",
+                    "name": "Kế Hoạch CM12 - Tập 1",
+                    "image": {
+                        "url": "https://thumb.vtvdigital.org/transform?url=https://vtvgo-next-assets.vtvdigital.vn/prod/images/content/20261030/2026103005/5b5e9ab9-d1f0-49d0-8ae4-6fea127f65ea-1-2560x1440.jpg&width=1080",
+                        "display": "contain"
+                    },
+                    "url": "https://rumble.com/hls-vod/rYCXyz8f0fw/playlist.m3u8"
                 }
             ]
         }
