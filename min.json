@@ -790,6 +790,15 @@
                         "display": "contain"
                     },
                     "url": "https://rumble.com/hls-vod/qlkfAggBdjU/playlist.m3u8"
+                },
+                {
+                    "id": "kế_hoạch_cm12_-_tập_5",
+                    "name": "Kế Hoạch CM12 - Tập 5",
+                    "image": {
+                        "url": "https://thumb.vtvdigital.org/transform?url=https://vtvgo-next-assets.vtvdigital.vn/prod/images/content/20261105/2026110501/5cb13a07-418c-452c-801d-15de2d31a5b8-5-2560x1440.jpg&width=1080",
+                        "display": "contain"
+                    },
+                    "url": "https://rumble.com/hls-vod/e0xUqB9VbOA/playlist.m3u8"
                 }
             ]
         }
