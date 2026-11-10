@@ -817,6 +817,15 @@
                         "display": "contain"
                     },
                     "url": "https://rumble.com/hls-vod/W2OYTbQygag/playlist.m3u8"
+                },
+                {
+                    "id": "kế_hoạch_cm12_-_tập_8",
+                    "name": "Kế Hoạch CM12 - Tập 8",
+                    "image": {
+                        "url": "https://thumb.vtvdigital.org/transform?url=https://vtvgo-next-assets.vtvdigital.vn/prod/images/content/2026/11/10/62963286-0d84-470b-8e7c-10d585cf21c2-8-2560x1440.jpg&width=1280",
+                        "display": "contain"
+                    },
+                    "url": "https://rumble.com/hls-vod/sCHY3k5K0LI/playlist.m3u8"
                 }
             ]
         }
